@@ -1,1 +1,1 @@
-# Analysis-of-Ireland-s-carbon-budgets
+A repository for my work analysing Ireland's carbon budget proposals. I'm using a random number based approach to look at the distribution of carbon budgets that comply with the programme for government 2020 commitment to reduce Ireland's emissions by 51% by 2030 from 2018 levels.
