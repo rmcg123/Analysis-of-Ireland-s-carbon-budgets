@@ -51,9 +51,9 @@ buds1=[]
 for i in range(len(allreds)):
         buds1.append(sum(cums[0+10*i:5+10*i]))
         
-plt.hist(buds1)
+plt.hist(buds1,density=True)
 plt.xlabel("MtCO2eq")
-plt.ylabel("Count")
+plt.ylabel("Probability density")
 plt.title("First carbon budget")
 plt.show()
         
@@ -61,9 +61,9 @@ buds2=[]
 for i in range(len(allreds)):
         buds2.append(sum(cums[5+10*i:10+10*i]))
         
-plt.hist(buds2)
+plt.hist(buds2,density=True)
 plt.xlabel("MtCO2eq")
-plt.ylabel("Count")
+plt.ylabel("Probability density")
 plt.title("Second carbon budget")
 plt.show()
 
@@ -71,11 +71,120 @@ totalcbs=[]
 for i in range(len(allreds)):
         totalcbs.append(sum(cums[0+10*i:10+10*i]))
         
-plt.hist(totalcbs)
+plt.hist(totalcbs,density=True)
 plt.xlabel("MtCO2eq")
-plt.ylabel("Count")
+plt.ylabel("Probability density")
 plt.title("Carbon budget over decade")
 plt.show()
         
 ## Backloaded
         
+blreds=[]
+for i in range(len(allreds)):
+    blreds.append(sorted(allreds[i],reverse=True))
+    
+blcums=[]
+for i in range(len(allreds)):
+    for j in range(1,11,1):
+        blcums.append(np.prod(blreds[i][0:j])*tot18)
+        
+blbuds1=[]
+for i in range(len(allreds)):
+        blbuds1.append(sum(blcums[0+10*i:5+10*i]))
+        
+plt.hist(blbuds1,density=True)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("First carbon budget (backloaded)")
+plt.show()
+        
+blbuds2=[]
+for i in range(len(allreds)):
+        blbuds2.append(sum(blcums[5+10*i:10+10*i]))
+        
+plt.hist(blbuds2,density=True)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("Second carbon budget (backloaded)")
+plt.show()
+
+totalblcbs=[]
+for i in range(len(allreds)):
+        totalblcbs.append(sum(blcums[0+10*i:10+10*i]))
+        
+plt.hist(totalblcbs,density=True)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("Carbon budget over decade (backloaded)")
+plt.show()
+
+## Frontloaded
+        
+flreds=[]
+for i in range(len(allreds)):
+    flreds.append(sorted(allreds[i]))
+    
+flcums=[]
+for i in range(len(allreds)):
+    for j in range(1,11,1):
+        flcums.append(np.prod(flreds[i][0:j])*tot18)
+        
+flbuds1=[]
+for i in range(len(allreds)):
+        flbuds1.append(sum(flcums[0+10*i:5+10*i]))
+        
+plt.hist(flbuds1,density=True)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("First carbon budget (frontloaded)")
+plt.show()
+        
+flbuds2=[]
+for i in range(len(allreds)):
+        flbuds2.append(sum(flcums[5+10*i:10+10*i]))
+        
+plt.hist(flbuds2,density=True)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("Second carbon budget (frontloaded)")
+plt.show()
+
+totalflcbs=[]
+for i in range(len(allreds)):
+        totalflcbs.append(sum(flcums[0+10*i:10+10*i]))
+        
+plt.hist(totalflcbs,density=True)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("Carbon budget over decade (frontloaded)")
+plt.show()
+
+## Comparison
+
+plt.hist(buds1,density=True,alpha=0.6)
+plt.hist(blbuds1,density=True,alpha=0.6)
+plt.hist(flbuds1,density=True,alpha=0.6)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("Comparison of pathways for first carbon budget")
+plt.legend(["random","backloaded","frontloaded"])
+plt.show()
+
+plt.hist(buds2,density=True,alpha=0.6)
+plt.hist(blbuds2,density=True,alpha=0.6)
+plt.hist(flbuds2,density=True,alpha=0.6)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("Comparison of pathways for second carbon budget")
+plt.legend(["random","backloaded","frontloaded"])
+plt.show()
+
+
+plt.hist(totalcbs,density=True,alpha=0.6)
+plt.hist(totalblcbs,density=True,alpha=0.6)
+plt.hist(totalflcbs,density=True,alpha=0.6)
+plt.xlabel("MtCO2eq")
+plt.ylabel("Probability density")
+plt.title("Comparison of pathways for decade")
+plt.legend(["random","backloaded","frontloaded"])
+plt.show()
